@@ -594,18 +594,18 @@
 
 	<h3 id="deployment-steps">Deployment Steps</h3>
 <p><strong>Step 1:</strong> Connect to the EC2 Instance via SSH
-<img src="/images/2.prerequisite/Ec39.png"></p>
+<img src="/images/2.prerequisite/EC39.png"></p>
 <ul>
 <li>If you&rsquo;re unsure how to do this:
-<img src="/images/2.prerequisite/Ec41.png"></li>
+<img src="/images/2.prerequisite/EC41.png"></li>
 <li><strong>your-key.pem:</strong> This is the key pair file you created when launching the EC2 instance.</li>
 <li><strong>ec2-user:</strong> Used for Amazon Linux. For Ubuntu, use ubuntu instead.</li>
 <li><strong>&lt; EC2-public-IP &gt;:</strong> This is the public IP address of your EC2 instance.</li>
 </ul>
 <p><strong>Step 2:</strong> Install the CPU stress testing tool
-<img src="/images/2.prerequisite/Ec42.png"></p>
+<img src="/images/2.prerequisite/EC42.png"></p>
 <p><strong>Step 3:</strong> Run the command to generate CPU load
-<img src="/images/2.prerequisite/Ec43.png"></p>
+<img src="/images/2.prerequisite/EC43.png"></p>
 <ul>
 <li><strong>&ndash;cpu 2:</strong> Use 2 CPU cores.</li>
 <li><strong>&ndash;timeout 120:</strong> Generate load for 120 seconds (2 minutes), then stop automatically.</li>
@@ -617,7 +617,7 @@
 <li>Check the email inbox you registered with SNS to see the alert email.</li>
 </ul>
 <p><strong>Step 5:</strong> This is the result after testing CPU load
-<img src="/images/2.prerequisite/Ec40.png"></p>
+<img src="/images/2.prerequisite/EC40.png"></p>
 
 
 
