@@ -1,97 +1,97 @@
 [
 {
-	"uri": "//localhost:1313/vi/3/3.1/",
+	"uri": "//huu-hoang-workshop.vercel.app/vi/3/3.1/",
 	"title": " EC2 → CloudWatch ",
 	"tags": [],
 	"description": "",
 	"content": "Các bước triển khai Bước 1: Kết nối SSH vào EC2 Instance Nếu bạn chưa biết cách: your-key.pem: là file key pair bạn tạo khi khởi tạo EC2. ec2-user: với Amazon Linux. Nếu dùng Ubuntu thì là ubuntu. \u0026lt; EC2-public-IP \u0026gt;: là địa chỉ IP của EC2. Bước 2: Cài công cụ tạo tải – stress\nBước 3: Chạy lệnh tạo tải CPU\n\u0026ndash;cpu 2: sử dụng 2 lõi CPU \u0026ndash;timeout 120: tạo tải trong 120 giây (2 phút), sau đó tự dừng. \u0026ndash;timeout (có thể chỉnh theo ý bạn) Bước 4: Quan sát cảnh báo và email\nTruy cập AWS CloudWatch → Alarms, xem trạng thái thay đổi. Kiểm tra hộp thư email bạn đăng ký trong SNS để thấy email cảnh báo đã được gửi. Bước 5: Đây là kết quả sau khi test CPU "
 },
 {
-	"uri": "//localhost:1313/vi/",
+	"uri": "//huu-hoang-workshop.vercel.app/vi/",
 	"title": "Giám sát CPU EC2 và Gửi Cảnh Báo Email qua CloudWatch &amp; SNS trên AWS",
 	"tags": [],
 	"description": "",
 	"content": "\n"
 },
 {
-	"uri": "//localhost:1313/vi/1/",
+	"uri": "//huu-hoang-workshop.vercel.app/vi/1/",
 	"title": "Giới thiệu",
 	"tags": [],
 	"description": "",
 	"content": "1.Amazon EC2 là một dịch vụ thuê máy chủ ảo (instance) của Amazon Web Services (AWS), cho phép bạn chạy ứng dụng, website, hoặc hệ thống backend một cách linh hoạt và có khả năng mở rộng. Dưới đây là khái niệm và ưu điểm của Amazon EC2:\nLinh hoạt cao: Dễ dàng lựa chọn cấu hình máy chủ (CPU, RAM, lưu trữ), hệ điều hành và vùng triển khai theo nhu cầu. Tự động mở rộng quy mô (Auto Scaling): Hỗ trợ mở rộng hoặc thu hẹp số lượng instance tự động theo lưu lượng sử dụng. Thanh toán theo mức sử dụng: Chỉ trả tiền cho tài nguyên sử dụng thực tế, giúp tiết kiệm chi phí so với đầu tư phần cứng. Triển khai nhanh: Có thể tạo máy chủ ảo chỉ trong vài phút, hỗ trợ triển khai ứng dụng nhanh chóng. Hiệu năng cao: Cung cấp nhiều loại instance chuyên biệt cho tính toán, bộ nhớ, GPU,\u0026hellip; phục vụ nhiều loại ứng dụng. Bảo mật mạnh mẽ: Kết hợp với IAM, VPC, Security Group giúp kiểm soát truy cập và bảo vệ dữ liệu an toàn. 2.Amazon CloudWatch Là dịch vụ giám sát và quan sát tài nguyên AWS và ứng dụng, giúp thu thập số liệu, ghi log, thiết lập cảnh báo và phản hồi với các sự kiện hệ thống.\nDưới đây là khái niệm và ưu điểm của Amazon CloudWatch:\nGiám sát thời gian thực tài nguyên và ứng dụng. Thiết lập cảnh báo linh hoạt khi vượt ngưỡng. Hỗ trợ trực quan hóa bằng dashboard. Tích hợp tốt với các dịch vụ AWS khác như Lambda, Auto Scaling. Giúp phát hiện và xử lý sự cố nhanh chóng. 3. Amazon SNS (Simple Notification Service) Amazon SNS là dịch vụ nhắn tin theo mô hình publish/subscribe, cho phép gửi thông báo tự động đến nhiều kênh như email, SMS, HTTP, Lambda.\nDưới đây là khái niệm và ưu điểm của Amazon SNS:\nGửi thông báo tức thì, tự động và theo thời gian thực. Dễ dàng tích hợp với các dịch vụ AWS như CloudWatch. Hỗ trợ đa dạng phương thức gửi: Email, SMS, HTTP, Lambda\u0026hellip; Tăng khả năng phản ứng nhanh trước các sự cố hệ thống. "
 },
 {
-	"uri": "//localhost:1313/vi/2/2.1/",
+	"uri": "//huu-hoang-workshop.vercel.app/vi/2/2.1/",
 	"title": "Thiết lập EC2",
 	"tags": [],
 	"description": "",
 	"content": "Các bước triển khai 1. Tạo EC2 Bước 1: Truy Cập AWS Console tìm EC2\nBước 2: Chọn EC2 Bước 3: Sau khi chọn EC2 thì sẽ hiện ra giao diện của EC2 và sau đó chọn Launch instance\nBước 4: Sau khi chọn Launch instance sẽ hiện ra như vậy và làm theo các bước sau:\nBước 5: Sau khi hoàn thành các bước trên, hiện ra như thế này là xong!\n"
 },
 {
-	"uri": "//localhost:1313/vi/2/",
+	"uri": "//huu-hoang-workshop.vercel.app/vi/2/",
 	"title": "Các bước chuẩn bị",
 	"tags": [],
 	"description": "",
 	"content": "Triển khai cảnh báo CPU EC2 với CloudWatch và SNS Để thực hiện cảnh báo khi CPU EC2 vượt ngưỡng, chúng ta cần chuẩn bị kiến thức và tài nguyên liên quan đến các dịch vụ AWS như EC2, CloudWatch và SNS. Đây là kiến trúc phổ biến trong giám sát và phản ứng tự động.\nCác dịch vụ giao tiếp người dùng Các dịch vụ dùng để tương tác và nhận thông báo:\nAmazon SNS – Dịch vụ gửi thông báo đến email, SMS hoặc các dịch vụ khác. Email Client – Để nhận và xác nhận subscription từ SNS. Các ứng dụng Đây là nơi tạo tải và được giám sát:\nAmazon EC2 – Máy chủ ảo, cài đặt stress tool để tạo CPU load. IAM Role – Gán cho EC2 quyền ghi metric hoặc đọc log nếu cần. Security Group – Cho phép truy cập SSH để vào máy chủ tạo tải. Dịch vụ giám sát Các dịch vụ giám sát và phát hiện bất thường:\nAmazon CloudWatch Metrics – Thu thập chỉ số CPU từ EC2. Amazon CloudWatch Alarms – Tạo điều kiện giám sát (ví dụ CPU \u0026gt; 30%). CloudWatch Logs (tuỳ chọn) – Ghi lại log nếu cần kiểm tra sau. Yêu cầu trước khi bắt đầu ✅ Tài khoản AWS đang hoạt động ✅ Một địa chỉ email để nhận cảnh báo (đã xác nhận SNS subscription) ✅ Kiến thức cơ bản về EC2, SSH và điều kiện cảnh báo CloudWatch ✅ Đã cài đặt SSH client (PuTTY hoặc terminal nếu dùng Linux/macOS) "
 },
 {
-	"uri": "//localhost:1313/vi/3/3.2/",
+	"uri": "//huu-hoang-workshop.vercel.app/vi/3/3.2/",
 	"title": " CloudWatch → SNS",
 	"tags": [],
 	"description": "",
 	"content": "Các bước triển khai Bước 1: Kết nối SSH vào EC2 Instance và chạy lên tạo tải CPU Kiểm tra CPU bao nhiêu % Lúc này trạng thái CloudWatch Alamrs sẽ là INSUFFICIENT_DATA -\u0026gt; nếu vượt quá % trạng thái chuyển đổi qua -\u0026gt; ALARM\nKhi vượt quá % so với bạn đề ra thì bên CloudWatch sẽ cảnh báo Kết quả sau khi vượt quá % bạn đề ra, bạn sẽ nhận được email cảnh bảo\n"
 },
 {
-	"uri": "//localhost:1313/vi/2/2.2/",
+	"uri": "//huu-hoang-workshop.vercel.app/vi/2/2.2/",
 	"title": "Thiết lập CloudWatch Alarms",
 	"tags": [],
 	"description": "",
 	"content": "Các bước triển khai 1. Tạo CloudWatch ALarms Bước 1: Truy Cập AWS Console tìm CloudWatch\nBước 2: Chọn CloudWatch Bước 3: chọn Alarms → Nhấn nút Create alarm Bước 4: Nhấn Select metric, tìm và chọn Instance ID của EC2 mà bạn đã tạo Bước 5: Cấu hình điều kiện cảnh báo Statistic -\u0026gt; Average : CloudWatch sẽ lấy giá trị trung bình của CPU sử dụng trong mỗi khoảng thời gian đã chọn (ở đây là 5 phút). Period\t-\u0026gt; 5 minutes : Mỗi \u0026ldquo;điểm dữ liệu\u0026rdquo; là trung bình CPU trong 5 phút. CloudWatch thu thập dữ liệu định kỳ theo chu kỳ này. Threshold type -\u0026gt; Static : Sử dụng ngưỡng cố định do bạn chỉ định. Nếu muốn dùng so sánh động (với dữ liệu cũ), có thể chọn \u0026ldquo;Anomaly detection\u0026rdquo; hoặc \u0026ldquo;Percentile\u0026rdquo;. Whenever CPUUtilization is\u0026hellip; -\u0026gt; Greater than : than\tChọn điều kiện “lớn hơn” để cảnh báo khi CPU vượt mức đã định. Bước 6: Cấu hình hành động khi cảnh báo Chọn: In alarm Notification type: Create new topic Nhập tên topic : Default_CloudWatch_Alarms_Topic Nhập email người nhận thông báo cảnh báo Nhấn Create topic Bước 7: Tiếp tục bấm Next Bước 8: Vào Gmail xác nhận đăng ký Người nhận sẽ nhận email từ AWS SNS yêu cầu xác nhận. Phải bấm vào \u0026ldquo;Xác nhận đăng ký\u0026rdquo; để hoàn tất. Bước 9: Sau khi xác nhận đăng ký sẽ hiện ra bảng như thế này Bước 10: Làm tiếp các bước để hoàn thành tạo CloudWatch Alarms\n"
 },
 {
-	"uri": "//localhost:1313/vi/3/",
+	"uri": "//huu-hoang-workshop.vercel.app/vi/3/",
 	"title": "Demo Tạo Cảnh Báo Tải CPU Trên AWS",
 	"tags": [],
 	"description": "",
 	"content": "Trong phần này, chúng ta thực hiện demo giám sát hiệu suất tài nguyên máy chủ EC2 bằng Amazon CloudWatch và gửi cảnh báo tự động qua dịch vụ SNS khi CPU vượt ngưỡng cho phép.\n3.1 Thiết Lập EC2 Và Tạo Tải CPU Các bước thực hiện: Bước 1: Tạo một Amazon EC2 Instance (loại t2.micro) tại khu vực us-east-1. Bước 2: Mở cổng SSH (port 22) cho IP của bạn để truy cập vào EC2. Bước 3: SSH vào máy EC2, sau đó chạy lệnh yes \u0026gt; /dev/null \u0026amp; để tạo tải cao trên CPU. Bước 4: Chuyển sang dịch vụ Amazon CloudWatch → chọn Create Alarm. Bước 5: Chọn metric: Namespace: AWS/EC2 Metric name: CPUUtilization InstanceId: chọn đúng EC2 đang tạo tải Bước 6: Thiết lập ngưỡng cảnh báo: Nếu CPU \u0026gt; 30% trong 2 phút (2 kỳ 60 giây) thì chuyển sang trạng thái ALARM. Bước 7: Kiểm tra trạng thái Alarm chuyển từ OK sang ALARM khi tải cao. Mục tiêu: Xác minh CloudWatch có thể giám sát tài nguyên EC2 theo thời gian thực. Đảm bảo Alarm hoạt động chính xác khi CPU vượt ngưỡng. 3.2 Cấu Hình SNS Để Gửi Mail Cảnh Báo Các bước thực hiện: Bước 1: Truy cập dịch vụ Amazon SNS và tạo một Topic mới (cpu-alert-topic). Bước 2: Tạo một Subscription mới với giao thức là Email, điền địa chỉ email bạn muốn nhận cảnh báo. Bước 3: Vào email để xác nhận (Confirm Subscription). Bước 4: Quay lại phần Alarm trong CloudWatch, tại phần hành động khi vào trạng thái ALARM, chọn gửi đến SNS Topic vừa tạo. Bước 5: Khi Alarm được kích hoạt, SNS tự động gửi email cảnh báo về CPU cao. Nội dung email nhận được: Tiêu đề: \u0026quot;HighCPUAlarm\u0026quot; in US East (N. Virginia) Chi tiết: lý do Alarm chuyển trạng thái (CPU vượt ngưỡng), thời gian kích hoạt, ID của EC2, ARN của Alarm, v.v. Tổng Kết Phần Demo CloudWatch giám sát được metric thời gian thực từ EC2. Khi tải CPU cao, Alarm tự động phát hiện và gửi cảnh báo qua SNS. Kết hợp CloudWatch và SNS giúp hệ thống phát hiện sự cố sớm và phản ứng nhanh. Đây là bước quan trọng để xây dựng các hệ thống có tính giám sát – tự động – cảnh báo chủ động. "
 },
 {
-	"uri": "//localhost:1313/vi/2/2.3/",
+	"uri": "//huu-hoang-workshop.vercel.app/vi/2/2.3/",
 	"title": " Tạo Amazon SNS",
 	"tags": [],
 	"description": "",
 	"content": "Các bước triển khai 1. Tạo Amazon SNS (Simple Notification Service) Bước 1: Truy Cập AWS Console tìm SNS (Simple Notification Service) Bấm create topic Chọn Type: Standard\nName: cpu-alert-topic Bấm Create topic\nBước 2: Đăng ký (Subscribe) email vào Topic\nTrong Topic cpu-alert-topic, chọn Create subscription Endpoint: Nhập email bạn muốn nhận cảnh báo\nBấm Create subscription Mở email của bạn -\u0026gt; bấm Xác nhận đăng ký\nĐợi đến khi Status thành “Confirmed” thì mới hoạt động. "
 },
 {
-	"uri": "//localhost:1313/vi/4/",
+	"uri": "//huu-hoang-workshop.vercel.app/vi/4/",
 	"title": "Monitoring Recap",
 	"tags": [],
 	"description": "",
 	"content": "Tổng Kết: Giám Sát Tài Nguyên EC2 Với CloudWatch và SNS Trong workshop này, chúng ta đã triển khai một hệ thống cảnh báo đơn giản nhưng hiệu quả bằng cách sử dụng:\nAmazon EC2 – Nguồn tạo tải CPU. Amazon CloudWatch – Giám sát chỉ số CPU. Amazon SNS – Gửi cảnh báo qua email khi vượt ngưỡng. Lợi Ích Chính 1. Tự động giám sát theo thời gian thực CloudWatch thu thập chỉ số CPU mỗi phút. Phát hiện bất thường khi CPU tăng cao trong thời gian ngắn. 2. Cảnh báo tức thì Tự động gửi email khi vượt ngưỡng cảnh báo (ví dụ: CPU \u0026gt; 30% trong 2 phút). 3. Cấu hình linh hoạt Có thể thiết lập nhiều ngưỡng và hành động khác nhau. Dễ dàng mở rộng sang các chỉ số khác như RAM, Disk, Network. 4. Chi phí thấp, tích hợp dễ dàng Không cần cài đặt công cụ ngoài. Tận dụng tài nguyên AWS có sẵn, không phát sinh chi phí lớn. So Sánh Với Giám Sát Truyền Thống Tiêu chí AWS CloudWatch + SNS Công cụ giám sát thủ công Cài đặt Dễ dàng, không cần máy chủ riêng Phức tạp, cần cấu hình agent Cảnh báo Gửi ngay khi vượt ngưỡng Có thể chậm hoặc thiếu chính xác Bảo trì Do AWS vận hành Tự quản lý, dễ lỗi Mở rộng Tự động qua tag/instance ID Thêm cấu hình thủ công Tính ổn định Cao, tích hợp tốt trong AWS Phụ thuộc kinh nghiệm người quản trị Định Hướng Mở Rộng Giám sát thêm RAM, Disk, Network I/O. Gửi cảnh báo đa kênh: SMS, Slack, Telegram. Tích hợp với AWS Lambda để xử lý sự kiện tự động (tắt EC2, scale up\u0026hellip;). Kết Luận Workshop này giúp hiểu rõ quy trình giám sát EC2 cơ bản trong AWS: từ thu thập số liệu → phát hiện bất thường → gửi cảnh báo. Đây là tiền đề quan trọng để triển khai giám sát tự động hóa và chuyên nghiệp hơn trong môi trường thực tế.\n"
 },
 {
-	"uri": "//localhost:1313/vi/2/2.4/",
+	"uri": "//huu-hoang-workshop.vercel.app/vi/2/2.4/",
 	"title": " Kết nối cảnh báo CloudWatch với SNS",
 	"tags": [],
 	"description": "",
 	"content": "Các bước triển khai 1. Vào AWS Console \u0026gt; Tìm CloudWatch Bước 1: Truy Cập AWS Console tìm CloudWatch\nChọn CloudWatch Chọn Alarms → Nhấn nút Create alarm Nhấn Select metric\nVào: EC2 → Per-Instance Metrics Chọn instance của bạn\nChọn CPUUtilization\nSau đó bấm Select metric Bước 2: Cấu hình Alarm\nStatistic: Average\nPeriod: 1 minute Threshold type: Static\nWhenever CPUUtilization is\u0026hellip; : Greater\n30 Bấm next Chọn: “In alarm”\nSNS topic: Chọn cpu-alert-topic Bấm next Alarms name : HighCPUAlarm\nBấm next "
 },
 {
-	"uri": "//localhost:1313/vi/5/",
+	"uri": "//huu-hoang-workshop.vercel.app/vi/5/",
 	"title": "Dọn dẹp tài nguyên",
 	"tags": [],
 	"description": "",
 	"content": "Chúng ta sẽ tiến hành các bước sau để xóa các tài nguyên chúng ta đã tạo trong bài thực hành này.\n1. Dừng và Xóa EC2 Instance Truy cập AWS EC2 Dashboard. Chọn Instance đã sử dụng cho demo. Bấm Actions → Instance state → Terminate. Xác nhận để xóa. 2. Xóa CloudWatch Alarm Vào CloudWatch → Alarms. Chọn Alarm tên HighCPUAlarm. Bấm Actions → Delete để xóa cảnh báo. 3. Xóa SNS Topic và Subscription Truy cập Amazon SNS → Topics. Chọn Topic đã tạo (cpu-alert-topic). Bấm Delete topic. Vào mục Subscriptions và xóa các subscription email nếu cần. 4. Xóa Key Pair (nếu tạo riêng cho demo) Truy cập EC2 → Key Pairs. Xóa key không còn sử dụng để tránh lưu trữ dư thừa. 5. Xóa Security Group (nếu tạo riêng) Vào EC2 → Security Groups. Xóa các nhóm bảo mật bạn đã tạo cho demo nếu không còn cần. Lưu Ý: Một số tài nguyên như EBS volume, Elastic IP cũng có thể tạo chi phí nếu không gắn vào Instance → kiểm tra và xóa nếu cần. Nếu bạn dùng Free Tier, việc dọn dẹp vẫn giúp giữ tài khoản sạch sẽ, dễ quản lý và phòng tránh lỗi không mong muốn. ✅ Dọn dẹp sau mỗi demo là bước quan trọng để tối ưu chi phí và duy trì môi trường AWS gọn gàng.\n"
 },
 {
-	"uri": "//localhost:1313/vi/categories/",
+	"uri": "//huu-hoang-workshop.vercel.app/vi/categories/",
 	"title": "Categories",
 	"tags": [],
 	"description": "",
 	"content": ""
 },
 {
-	"uri": "//localhost:1313/vi/tags/",
+	"uri": "//huu-hoang-workshop.vercel.app/vi/tags/",
 	"title": "Tags",
 	"tags": [],
 	"description": "",

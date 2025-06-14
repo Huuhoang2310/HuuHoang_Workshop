@@ -2,11 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Giám sát CPU EC2 và Gửi Cảnh Báo Email qua CloudWatch &amp; SNS trên AWS on AWS System Manager</title>
-    <link>//localhost:1313/vi/</link>
+    <link>//huu-hoang-workshop.vercel.app/vi/</link>
     <description>Recent content in Giám sát CPU EC2 và Gửi Cảnh Báo Email qua CloudWatch &amp; SNS trên AWS on AWS System Manager</description>
     <generator>Hugo</generator>
     <language>vi</language>
     <lastBuildDate></lastBuildDate>
-    <atom:link href="//localhost:1313/vi/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="//huu-hoang-workshop.vercel.app/vi/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
