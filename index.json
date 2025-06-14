@@ -1,0 +1,99 @@
+[
+{
+	"uri": "//localhost:1313/",
+	"title": "EC2 CPU Monitoring and Email Notifications with CloudWatch and SNS on AWS",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "//localhost:1313/2/2.1/",
+	"title": "EC2 Setup",
+	"tags": [],
+	"description": "",
+	"content": "Deployment Steps Create EC2 Step 1: Go to the AWS Console and search for EC2 Step 2: Select EC2 Step 3: After selecting EC2, you will be directed to the EC2 dashboard. Click Launch instance Step 4: After clicking Launch instance, follow the steps as shown: Step 5: Once the above steps are completed, you will see the following screen — and that’s it! "
+},
+{
+	"uri": "//localhost:1313/3/3.1/",
+	"title": "Generate CPU load for testing",
+	"tags": [],
+	"description": "",
+	"content": "Deployment Steps Step 1: Connect to the EC2 Instance via SSH If you\u0026rsquo;re unsure how to do this: your-key.pem: This is the key pair file you created when launching the EC2 instance. ec2-user: Used for Amazon Linux. For Ubuntu, use ubuntu instead. \u0026lt; EC2-public-IP \u0026gt;: This is the public IP address of your EC2 instance. Step 2: Install the CPU stress testing tool Step 3: Run the command to generate CPU load \u0026ndash;cpu 2: Use 2 CPU cores. \u0026ndash;timeout 120: Generate load for 120 seconds (2 minutes), then stop automatically. \u0026ndash;timeout: You can adjust this value as needed. Step 4: Monitor alarms and emails\nGo to AWS CloudWatch → Alarms and observe the status changes. Check the email inbox you registered with SNS to see the alert email. Step 5: This is the result after testing CPU load "
+},
+{
+	"uri": "//localhost:1313/1/",
+	"title": "Introduction",
+	"tags": [],
+	"description": "",
+	"content": "1. Amazon EC2 Amazon EC2 (Elastic Compute Cloud) is a virtual server rental service provided by Amazon Web Services (AWS), allowing you to run applications, websites, or backend systems flexibly and with scalability.\nBelow are the definition and key advantages of Amazon EC2:\nHigh flexibility: Easily choose server configuration (CPU, RAM, storage), operating system, and deployment region based on your needs. Auto Scaling: Automatically scale the number of instances up or down depending on traffic. Pay-as-you-go pricing: Pay only for the resources you actually use, helping reduce costs compared to investing in hardware. Quick deployment: Launch virtual servers in just a few minutes, supporting fast application deployment. High performance: Offers various instance types optimized for compute, memory, GPU, etc., for a wide range of workloads. Strong security: Integrates with IAM, VPC, and Security Groups to control access and protect your data. 2. Amazon CloudWatch Amazon CloudWatch is a monitoring and observability service for AWS resources and applications. It helps collect metrics, log data, set alarms, and respond to system events.\nBelow are the definition and key advantages of Amazon CloudWatch:\nReal-time monitoring of resources and applications. Flexible alarm configuration when thresholds are breached. Supports dashboards for data visualization. Well integrated with other AWS services such as Lambda and Auto Scaling. Helps quickly detect and troubleshoot system issues. 3. Amazon SNS (Simple Notification Service) Amazon SNS is a messaging service based on the publish/subscribe model that enables automatic notifications to multiple channels such as email, SMS, HTTP, and Lambda.\nBelow are the definition and key advantages of Amazon SNS:\nReal-time, automatic message delivery. Easy integration with AWS services like CloudWatch. Supports various delivery methods: Email, SMS, HTTP, Lambda, etc. Enhances responsiveness to system events and failures. "
+},
+{
+	"uri": "//localhost:1313/2/",
+	"title": "Preparation Steps",
+	"tags": [],
+	"description": "",
+	"content": "Deploying EC2 CPU Alerts with CloudWatch and SNS To set up alerts when EC2 CPU usage exceeds a threshold, we need to prepare the necessary knowledge and resources related to AWS services such as EC2, CloudWatch, and SNS. This is a common architecture used for monitoring and automated response.\nUser-Facing Services These services are used for user interaction and receiving notifications:\nAmazon SNS – A service that sends notifications via email, SMS, or other endpoints. Email Client – Used to receive and confirm the SNS subscription. Applications These are the components being monitored and where CPU load is generated:\nAmazon EC2 – Virtual servers where you install a stress tool to simulate CPU load. IAM Role – Assigned to the EC2 instance to allow writing metrics or reading logs if needed. Security Group – Allows SSH access to connect to the instance and generate load. Monitoring Services Services responsible for monitoring and anomaly detection:\nAmazon CloudWatch Metrics – Collects CPU usage metrics from EC2. Amazon CloudWatch Alarms – Defines monitoring conditions (e.g., CPU \u0026gt; 30%). CloudWatch Logs (optional) – Logs can be stored for later inspection if needed. Prerequisites ✅ An active AWS account ✅ A valid email address to receive alerts (confirmed SNS subscription) ✅ Basic knowledge of EC2, SSH, and CloudWatch alarm conditions ✅ SSH client installed (PuTTY or terminal for Linux/macOS) "
+},
+{
+	"uri": "//localhost:1313/3/3.2/",
+	"title": "CloudWatch → SNS",
+	"tags": [],
+	"description": "",
+	"content": "Deployment Steps Step 1: Connect to your EC2 instance via SSH and generate high CPU load\nCheck the current CPU utilization percentage\nAt first, the CloudWatch Alarm status may show as INSUFFICIENT_DATA\nIf the CPU usage exceeds the defined threshold, the status will change to ALARM\nOnce the threshold is exceeded, CloudWatch will trigger an alert\nAs a result, you will receive an alert email via Amazon SNS\n"
+},
+{
+	"uri": "//localhost:1313/2/2.2/",
+	"title": "CloudWatch Setup",
+	"tags": [],
+	"description": "",
+	"content": "Deployment Steps 1. Create CloudWatch Alarm Step 1: Log in to AWS Console and search for CloudWatch.\nStep 2: Click on CloudWatch Step 3: Select Alarms → Click Create alarm Step 4: Click Select metric, then search for and select the Instance ID of the EC2 instance you created Step 5: Configure alarm conditions Statistic → Average: CloudWatch will take the average CPU usage within each selected time interval (in this case, 5 minutes). Period → 5 minutes: Each data point represents the average CPU usage over 5 minutes. CloudWatch collects data on this interval. Threshold type → Static: Use a fixed threshold that you specify. If you prefer dynamic comparison (based on historical data), choose “Anomaly detection” or “Percentile”. Whenever CPUUtilization is\u0026hellip; → Greater than: Select “greater than” to trigger the alarm when CPU usage exceeds the defined threshold. Step 6: Configure alarm action Step 7: Click Next to continue Step 8: Confirm subscription in Gmail Step 9: After confirming, a screen like this will appear Step 11: Continue with the final steps to complete the CloudWatch Alarm setup "
+},
+{
+	"uri": "//localhost:1313/3/",
+	"title": "Demo: Creating a CPU Load Alarm on AWS",
+	"tags": [],
+	"description": "",
+	"content": "In this section, we will demonstrate how to monitor the performance of an EC2 instance using Amazon CloudWatch and automatically send alerts via SNS when the CPU usage exceeds a defined threshold.\n3.1 Setting Up EC2 and Generating CPU Load Steps to perform: Step 1: Launch an Amazon EC2 instance (t2.micro) in the us-east-1 region. Step 2: Open the SSH port (port 22) for your IP to access the EC2 instance. Step 3: SSH into the EC2 instance and run the command yes \u0026gt; /dev/null \u0026amp; to generate high CPU load. Step 4: Go to Amazon CloudWatch → click Create Alarm. Step 5: Select the following metric: Namespace: AWS/EC2 Metric name: CPUUtilization InstanceId: choose the correct instance where CPU load is being generated Step 6: Configure the alarm threshold: If CPU \u0026gt; 30% for 2 consecutive periods (60 seconds each), change status to ALARM. Step 7: Verify that the Alarm transitions from OK to ALARM under high load. Objectives: Confirm that CloudWatch can monitor EC2 resources in real time. Ensure the alarm works accurately when CPU usage exceeds the threshold. 3.2 Configuring SNS to Send Email Alerts Steps to perform: Step 1: Go to Amazon SNS and create a new Topic (e.g., cpu-alert-topic). Step 2: Create a new Subscription with the protocol set to Email, and enter your email address to receive alerts. Step 3: Open your email and confirm the subscription. Step 4: Go back to the Alarm configuration in CloudWatch and, under the \u0026ldquo;ALARM\u0026rdquo; action, choose the SNS Topic created. Step 5: When the Alarm is triggered, SNS will automatically send a high CPU alert email. Example content of the alert email: Subject: \u0026quot;HighCPUAlarm\u0026quot; in US East (N. Virginia) Details: Reason for alarm state change (e.g., CPU exceeded threshold), trigger time, EC2 instance ID, alarm ARN, etc. Demo Summary CloudWatch successfully monitors real-time metrics from EC2. When CPU load increases, the alarm is automatically triggered and sends a notification via SNS. The combination of CloudWatch and SNS enables early incident detection and fast response. This is a critical step in building systems with monitoring, automation, and proactive alerting. "
+},
+{
+	"uri": "//localhost:1313/2/2.3/",
+	"title": "Create Amazon SNS",
+	"tags": [],
+	"description": "",
+	"content": "Deployment Steps 1. Create Amazon SNS (Simple Notification Service) Step 1: Go to the AWS Console and search for SNS (Simple Notification Service)\nClick Create topic\nConfigure the topic:\nType: Standard Name: cpu-alert-topic\nClick Create topic\n2. Subscribe an Email Address to the Topic Step 2: On the cpu-alert-topic details page, click Create subscription\nProtocol: Email Endpoint: Enter the email address you want to receive alerts Click Create subscription\nStep 3: Open your email inbox and click Confirm subscription (Xác nhận đăng ký) in the message from AWS\nReturn to the AWS Console and wait until the Status becomes Confirmed\n"
+},
+{
+	"uri": "//localhost:1313/4/",
+	"title": "Monitoring Recap",
+	"tags": [],
+	"description": "",
+	"content": "Recap: EC2 Resource Monitoring with CloudWatch and SNS In this workshop, we implemented a simple yet effective alerting system using:\nAmazon EC2 – The source of CPU load generation. Amazon CloudWatch – Monitors CPU metrics. Amazon SNS – Sends alerts via email when thresholds are breached. Key Benefits 1. Real-Time Automated Monitoring CloudWatch collects CPU metrics every minute. Detects anomalies when CPU usage spikes suddenly. 2. Instant Alerts Automatically sends emails when thresholds are exceeded (e.g., CPU \u0026gt; 30% for 2 minutes). 3. Flexible Configuration Supports multiple thresholds and actions. Easily extendable to other metrics like RAM, Disk, and Network. 4. Low Cost, Easy Integration No need for third-party tools. Leverages existing AWS services with minimal cost. Comparison with Traditional Monitoring Criteria AWS CloudWatch + SNS Manual Monitoring Tools Setup Easy, no dedicated server needed Complex, requires agent setup Alerting Instant upon threshold breach May be delayed or inaccurate Maintenance Managed by AWS Self-managed, error-prone Scalability Automatic via tags/instance IDs Manual configuration needed Stability High, well-integrated in AWS Depends on admin experience Future Enhancements Monitor additional metrics: RAM, Disk, Network I/O. Multi-channel alerts: SMS, Slack, Telegram. Integrate with AWS Lambda to handle events automatically (e.g., shut down EC2, scale up, etc.). Conclusion This workshop provides a solid understanding of basic EC2 monitoring on AWS — from collecting metrics → detecting anomalies → sending alerts. It lays the foundation for more automated and professional monitoring systems in real-world environments.\n"
+},
+{
+	"uri": "//localhost:1313/2/2.4/",
+	"title": "Connect CloudWatch Alarm to SNS",
+	"tags": [],
+	"description": "",
+	"content": "Deployment Steps 1. Open AWS Console \u0026gt; Search for CloudWatch Step 1: Go to the AWS Console and search for CloudWatch.\nSelect CloudWatch\nClick Alarms → Create alarm\nClick Select metric\nNavigate to: EC2 → Per-Instance Metrics\nChoose your EC2 instance\nSelect CPUUtilization\nThen click Select metric\n2. Configure the Alarm Step 2: Set up the alarm configuration\nStatistic: Average\nPeriod: 1 minute\nThreshold type: Static\nWhenever CPUUtilization is\u0026hellip;: Greater\nThreshold value: 30 Click Next\nUnder Notification, select:\nAlarm state trigger: In alarm Send a notification to: cpu-alert-topic (your SNS topic)\nClick Next\nAlarm name: HighCPUAlarm\nClick Next\n"
+},
+{
+	"uri": "//localhost:1313/5/",
+	"title": "Resource Cleanup",
+	"tags": [],
+	"description": "",
+	"content": "In this section, we will go through the steps to clean up the resources we created during this hands-on session.\n1. Stop and Terminate EC2 Instance Go to the AWS EC2 Dashboard. Select the EC2 instance used for the demo. Click Actions → Instance state → Terminate. Confirm to delete the instance. 2. Delete CloudWatch Alarm Navigate to CloudWatch → Alarms. Select the alarm named HighCPUAlarm. Click Actions → Delete to remove the alarm. 3. Delete SNS Topic and Subscription Go to Amazon SNS → Topics. Select the created topic (cpu-alert-topic). Click Delete topic. Navigate to Subscriptions and delete any associated email subscriptions if necessary. 4. Delete Key Pair (if created specifically for this demo) Go to EC2 → Key Pairs. Delete any unused key pairs to avoid unnecessary storage. 5. Delete Security Group (if created specifically for this demo) Go to EC2 → Security Groups. Delete any custom security groups used for the demo if no longer needed. Notes: Some resources like EBS volumes and Elastic IPs may incur charges if not attached to an instance — review and delete them if necessary. Even if you\u0026rsquo;re using the Free Tier, cleaning up helps keep your account organized, avoids unnecessary costs, and prevents potential misconfigurations. ✅ Cleaning up after each demo is essential for cost optimization and maintaining a clean AWS environment.\n"
+},
+{
+	"uri": "//localhost:1313/categories/",
+	"title": "Categories",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "//localhost:1313/tags/",
+	"title": "Tags",
+	"tags": [],
+	"description": "",
+	"content": ""
+}]
